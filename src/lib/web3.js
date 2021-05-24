@@ -1,3 +1,8 @@
+import { BscConnector } from "@binance-chain/bsc-connector";
 import { InjectedConnector } from "@web3-react/injected-connector";
 
-export const bscConnector = new InjectedConnector({ supportedChainIds: [ 56, 97 ], });
+const supportedChainIds = [56, 97];
+
+export const bscConnector = new BscConnector({ supportedChainIds, });
+
+export const injectedConnector = new InjectedConnector({ supportedChainIds });
