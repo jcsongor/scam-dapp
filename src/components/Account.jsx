@@ -4,7 +4,7 @@ import { bscConnector, injectedConnector } from "../lib/web3";
 
 const ConnectButton = ({ onClick, title = 'Connect' }) => <button type="button" onClick={onClick}>{title}</button>;
 
-export const Wallet = () => {
+export const Account = () => {
 	const { account, activate, active } = useWeb3React();
 
 	const connectBinanceWallet = () => activate(bscConnector);
