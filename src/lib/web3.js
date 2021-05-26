@@ -14,3 +14,5 @@ const supportedChainIds = [56, 97];
 export const bscConnector = new BscConnector({ supportedChainIds, });
 
 export const injectedConnector = new InjectedConnector({ supportedChainIds });
+
+export const maskAddress = (address) => address.substr(0, 4) + '...' + address.substr(-4);
