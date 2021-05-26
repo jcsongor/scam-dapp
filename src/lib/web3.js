@@ -11,9 +11,11 @@ export const balanceOf = async (web3, account) => {
 	return balance / 10 ** decimals;
 };
 
+const LP_DECIMALS = 18;
+
 export const lpBalanceOf = async (web3, account) => {
 	const contract = getContract(lpMonitor, account, web3);
-	return await contract.methods.balanceOf(account).call();
+	return await contract.methods.balanceOf(account).call() / 10 ** LP_DECIMALS;
 };
 
 export const isAddressRegistered = async (web3, account) => {
