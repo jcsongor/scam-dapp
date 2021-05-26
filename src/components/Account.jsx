@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core/';
 import { balanceOf, lpBalanceOf } from "../lib/web3";
 import { useWeb3 } from "../hooks/useWeb3";
 
-const AccountInfo = ({ account, balance, lpBalance }) => <div>
-	<div>Address: {account}</div>
-	<div>Your $SCAM balance: {balance}</div>
-	<div>$SCAM LP tokens: {lpBalance}</div>
-</div>;
+const AccountInfo = ({ account, balance, lpBalance }) => <TableContainer component={Paper}>
+	<Table>
+		<TableBody>
+			<TableRow>
+				<TableCell>Address:</TableCell>
+				<TableCell>{account}</TableCell>
+			</TableRow>
+			<TableRow>
+				<TableCell>Your $SCAM balance:</TableCell>
+				<TableCell>{balance}</TableCell>
+			</TableRow>
+			<TableRow>
+				<TableCell> $SCAM LP tokens:</TableCell>
+				<TableCell>{lpBalance}</TableCell>
+			</TableRow>
+		</TableBody>
+	</Table>
+</TableContainer>;
 
 const NotConnected = () => <div>Please connect your wallet.</div>;
 
