@@ -21,8 +21,8 @@ const AccountInfo = ({ address, balance, lpBalance, isRegistered }) => <TableCon
 			<TableRow>
 				<TableCell cellspan={2}>{
 					isRegistered
-						? 'Your address has been registered for airdrops.'
-						: 'You have not registered for airdrops yet.'
+						? 'Your address has been registered for liquidity rewards.'
+						: 'You have not registered for liquidity rewards yet.'
 				}</TableCell>
 			</TableRow>
 		</TableBody>
