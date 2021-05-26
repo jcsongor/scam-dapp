@@ -16,6 +16,16 @@ export const lpBalanceOf = async (web3, account) => {
 	return await contract.methods.balanceOf(account).call();
 };
 
+export const isAddressRegistered = async (web3, account) => {
+	const contract = getContract(lpMonitor, account, web3);
+	return await contract.methods.isAddressRegistered(account).call();
+};
+
+export const register = async (web3, account) => {
+	const contract = getContract(lpMonitor, account, web3);
+	return await contract.methods.register().send();
+};
+
 const supportedChainIds = [56, 97];
 
 export const bscConnector = new BscConnector({ supportedChainIds, });
