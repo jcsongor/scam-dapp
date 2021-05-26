@@ -1,6 +1,6 @@
 import { BscConnector } from "@binance-chain/bsc-connector";
 import { InjectedConnector } from "@web3-react/injected-connector";
-import { scamToken } from "../config/contracts";
+import { lpMonitor, scamToken } from "../config/contracts";
 
 const getContract = (contract, account, web3) => new web3.eth.Contract(contract.abi, contract.address, { from: account });
 
@@ -9,6 +9,11 @@ export const balanceOf = async (web3, account) => {
 	const balance = await contract.methods.balanceOf(account).call();
 	const decimals = await contract.methods.decimals().call();
 	return balance / 10 ** decimals;
+};
+
+export const lpBalanceOf = async (web3, account) => {
+	const contract = getContract(lpMonitor, account, web3);
+	return await contract.methods.balanceOf(account).call();
 };
 
 const supportedChainIds = [56, 97];
