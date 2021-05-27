@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@material-ui/core/';
-import { balanceOf, isAddressRegistered, lpBalanceOf } from "../../lib/web3";
+import { balanceOf, isAddressRegistered, lpBalanceOf, register } from "../../lib/web3";
 import { useWeb3 } from "../../hooks/useWeb3";
 import { LPRewards } from "./LPRewards";
 
 
-const AccountInfo = ({ address, balance, lpBalance, isRegistered }) => <TableContainer component={Paper}>
+const AccountInfo = ({ address, balance, lpBalance, isRegistered, fetchAccountInfo, register }) => <TableContainer
+	component={Paper}>
 	<Table>
 		<TableBody>
 			<TableRow>
@@ -16,7 +17,7 @@ const AccountInfo = ({ address, balance, lpBalance, isRegistered }) => <TableCon
 				<TableCell>Your $SCAM balance:</TableCell>
 				<TableCell>{balance}</TableCell>
 			</TableRow>
-			<LPRewards isRegistered={isRegistered} lpBalance={lpBalance} />
+			<LPRewards isRegistered={isRegistered} lpBalance={lpBalance} refresh={fetchAccountInfo} register={register} />
 		</TableBody>
 	</Table>
 </TableContainer>;
@@ -36,12 +37,21 @@ export const Account = () => {
 			isRegistered: await isAddressRegistered(web3, account),
 		})
 	}, [account]);
+	const registerAndRefresh = useCallback(async () => {
+		await register(web3, account);
+		fetchAccountInfo();
+	}, [fetchAccountInfo, account]);
 	useEffect(() => {
 		active && fetchAccountInfo();
 	}, [active, fetchAccountInfo]);
 
 	return active
-		? <AccountInfo {...accountInfo} address={account} />
+		? <AccountInfo
+			{...accountInfo}
+			address={account}
+			fetchAccountInfo={fetchAccountInfo}
+			register={registerAndRefresh}
+		/>
 		: <NotConnected />;
 };
 

@@ -1,9 +1,12 @@
 import React from "react";
-import { TableCell, TableRow } from '@material-ui/core/';
+import { Button, TableCell, TableRow } from '@material-ui/core/';
 
-const NotRegistered = () => <TableRow>
+const NotRegistered = ({ register }) => <TableRow>
 	<TableCell cellspan={2}>
 		You have not registered for liquidity rewards yet.
+	</TableCell>
+	<TableCell>
+		<Button onClick={register} color="primary" variant="contained">Register now</Button>
 	</TableCell>
 </TableRow>;
 
@@ -19,6 +22,6 @@ const Registered = ({ lpBalance }) => <>
 	</TableRow>
 </>;
 
-export const LPRewards = ({ lpBalance, isRegistered }) => isRegistered
+export const LPRewards = ({ lpBalance, isRegistered, register }) => isRegistered
 	? <Registered lpBalance={lpBalance} />
-	: <NotRegistered />;
+	: <NotRegistered register={register} />;
