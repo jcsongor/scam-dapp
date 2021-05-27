@@ -3,7 +3,7 @@ import { Button, Dialog } from '@material-ui/core/';
 import { useConnectWallet } from "../../hooks/useConnectWallet";
 import { WalletButton } from "./WalletButton";
 
-const ConnectButton = ({ onClick, title = 'Connect' }) => <Button type="button" onClick={onClick}>{title}</Button>;
+const ConnectButton = ({ onClick, title = 'Connect' }) => <Button onClick={onClick}>{title}</Button>;
 
 export const Connect = () => {
 	const [open, setOpen] = useState(false);
