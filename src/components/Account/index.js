@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core/';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@material-ui/core/';
 import { balanceOf, isAddressRegistered, lpBalanceOf } from "../../lib/web3";
 import { useWeb3 } from "../../hooks/useWeb3";
 import { LPRewards } from "./LPRewards";
@@ -21,7 +21,10 @@ const AccountInfo = ({ address, balance, lpBalance, isRegistered }) => <TableCon
 	</Table>
 </TableContainer>;
 
-const NotConnected = () => <div>Please connect your wallet.</div>;
+const NotConnected = () => <div>
+	<Typography variant="h3" color="primary">Please Connect Your Wallet.</Typography><br />
+	<img src="/icon.png" alt="scam coin logo" />
+</div>;
 
 export const Account = () => {
 	const { account, active, web3 } = useWeb3();
