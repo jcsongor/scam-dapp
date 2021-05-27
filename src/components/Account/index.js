@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core/';
-import { balanceOf, isAddressRegistered, lpBalanceOf } from "../lib/web3";
-import { useWeb3 } from "../hooks/useWeb3";
+import { balanceOf, isAddressRegistered, lpBalanceOf } from "../../lib/web3";
+import { useWeb3 } from "../../hooks/useWeb3";
+import { LPRewards } from "./LPRewards";
+
 
 const AccountInfo = ({ address, balance, lpBalance, isRegistered }) => <TableContainer component={Paper}>
 	<Table>
@@ -14,17 +16,7 @@ const AccountInfo = ({ address, balance, lpBalance, isRegistered }) => <TableCon
 				<TableCell>Your $SCAM balance:</TableCell>
 				<TableCell>{balance}</TableCell>
 			</TableRow>
-			<TableRow>
-				<TableCell> $SCAM LP tokens:</TableCell>
-				<TableCell>{lpBalance}</TableCell>
-			</TableRow>
-			<TableRow>
-				<TableCell cellspan={2}>{
-					isRegistered
-						? 'Your address has been registered for liquidity rewards.'
-						: 'You have not registered for liquidity rewards yet.'
-				}</TableCell>
-			</TableRow>
+			<LPRewards isRegistered={isRegistered} lpBalance={lpBalance} />
 		</TableBody>
 	</Table>
 </TableContainer>;
