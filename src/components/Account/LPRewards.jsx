@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, TableCell, TableRow } from '@material-ui/core/';
+import { TableCell, TableRow } from '@material-ui/core/';
 
 const NotRegistered = () => <TableRow>
 	<TableCell cellspan={2}>
