@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@material-ui/core/';
-import { balanceOf, isAddressRegistered, lpBalanceOf, register } from "../../lib/web3";
+import { balanceOf, isAddressRegistered, lpMonitorBalanceOf, lpBalanceOf, register } from "../../lib/web3";
 import { useWeb3 } from "../../hooks/useWeb3";
 import { LPRewards } from "./LPRewards";
 
 
-const AccountInfo = ({ address, balance, lpBalance, isRegistered, fetchAccountInfo, register }) => <TableContainer
+const AccountInfo = ({ address, balance, lpBalance, lpMonitorBalance, isRegistered, fetchAccountInfo, register }) => <TableContainer
 	component={Paper}>
 	<Table>
 		<TableBody>
@@ -17,7 +17,7 @@ const AccountInfo = ({ address, balance, lpBalance, isRegistered, fetchAccountIn
 				<TableCell>Your $SCAM balance:</TableCell>
 				<TableCell>{balance}</TableCell>
 			</TableRow>
-			<LPRewards isRegistered={isRegistered} lpBalance={lpBalance} refresh={fetchAccountInfo} register={register} />
+			<LPRewards isRegistered={isRegistered} lpBalance={lpBalance} lpMonitorBalance={lpMonitorBalance} refresh={fetchAccountInfo} register={register} />
 		</TableBody>
 	</Table>
 </TableContainer>;
@@ -33,6 +33,7 @@ export const Account = () => {
 	const fetchAccountInfo = useCallback(async () => {
 		setAccountInfo({
 			balance: await balanceOf(web3, account),
+			lpMonitorBalance: await lpMonitorBalanceOf(web3, account),
 			lpBalance: await lpBalanceOf(web3, account),
 			isRegistered: await isAddressRegistered(web3, account),
 		})

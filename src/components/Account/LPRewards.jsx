@@ -2,7 +2,7 @@ import React from "react";
 import { Button, TableCell, TableRow } from '@material-ui/core/';
 
 const NotRegistered = ({ register }) => <TableRow>
-	<TableCell cellspan={2}>
+	<TableCell>
 		You have not registered for liquidity rewards yet.
 	</TableCell>
 	<TableCell>
@@ -10,18 +10,33 @@ const NotRegistered = ({ register }) => <TableRow>
 	</TableCell>
 </TableRow>;
 
-const Registered = ({ lpBalance }) => <>
+const Registered = ({ lpMonitorBalance }) => <>
 	<TableRow>
-		<TableCell cellspan={2}>
+		<TableCell colSpan={2}>
 			Your address has been registered for liquidity rewards.
 		</TableCell>
 	</TableRow>
 	<TableRow>
-		<TableCell> $SCAM LP tokens:</TableCell>
-		<TableCell>{lpBalance}</TableCell>
+		<TableCell>$SCAM LP tokens registered for rewards:</TableCell>
+		<TableCell>{lpMonitorBalance}</TableCell>
 	</TableRow>
 </>;
 
-export const LPRewards = ({ lpBalance, isRegistered, register }) => isRegistered
-	? <Registered lpBalance={lpBalance} />
+const LPBalance = ({ lpBalance }) => <TableRow>
+	<TableCell>$SCAM LP tokens:</TableCell>
+	<TableCell>{lpBalance}</TableCell>
+</TableRow>;
+
+const LPMonitor = ({ lpBalance, lpMonitorBalance, isRegistered, register }) => isRegistered
+	? <Registered lpMonitorBalance={lpMonitorBalance} />
 	: <NotRegistered register={register} />;
+
+export const LPRewards = ({ lpBalance, lpMonitorBalance, isRegistered, register }) => <>
+	<LPBalance lpBalance={lpBalance} />
+	<LPMonitor
+		lpBalance={lpBalance}
+		lpMonitorBalance={lpMonitorBalance}
+		isRegistered={isRegistered}
+		register={register}
+	/>
+</>;
