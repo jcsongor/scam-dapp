@@ -275,7 +275,7 @@ export const lpMonitor = {
 		"stateMutability": "view",
 		"type": "function"
 	}],
-}
+};
 
 export const lovePool = {
 	address: '0xd0fFE14Ca1e4863D0AC7aB7CE6BD7612c4c9d366',

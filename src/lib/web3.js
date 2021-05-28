@@ -36,9 +36,20 @@ export const isAddressRegistered = async (web3, account) => {
 	return await contract.methods.isAddressRegistered(account).call();
 };
 
+export const promotionRunning = async (web3, account) => {
+	const contract = getContract(lpMonitor, account, web3);
+	return await contract.methods.PromotionRunning().call();
+};
+
+
 export const register = async (web3, account) => {
 	const contract = getContract(lpMonitor, account, web3);
 	return await contract.methods.register().send();
+};
+
+export const update = async (web3, account) => {
+	const contract = getContract(lpMonitor, account, web3);
+	return await contract.methods.update().send();
 };
 
 const supportedChainIds = [56, 97];
