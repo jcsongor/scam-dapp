@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, {useMemo, useState} from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -11,9 +11,9 @@ import {
 	ListItemText,
 	makeStyles,
 } from '@material-ui/core/';
-import { useWeb3 } from "../../hooks/useWeb3";
-import { maskAddress } from "../../lib/web3";
-import { WalletButton } from "./WalletButton";
+import {useWeb3} from "../../hooks/useWeb3";
+import {maskAddress} from "../../lib/web3";
+import {WalletButton} from "./WalletButton";
 import CloseIcon from '@material-ui/icons/Close';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
@@ -25,14 +25,14 @@ const useStyles = makeStyles({
 	},
 });
 
-export const Connected = () => {
+export const Connected: React.FC = () => {
 	const styles = useStyles();
 	const [open, setOpen] = useState(false);
-	const { account, deactivate } = useWeb3();
+	const {account, deactivate} = useWeb3();
 	const openDialog = useMemo(() => () => setOpen(true), [setOpen]);
 	const closeDialog = useMemo(() => () => setOpen(false), [setOpen]);
 
-	return <>
+	return account ? <>
 		<WalletButton onClick={openDialog}>{maskAddress(account)}</WalletButton>
 		<Dialog open={open} onClose={closeDialog}>
 			<DialogTitle>Logout
@@ -51,6 +51,5 @@ export const Connected = () => {
 				</DialogContentText>
 			</DialogContent>
 		</Dialog>
-	</>
-		;
+	</> : <></>;
 };

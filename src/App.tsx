@@ -5,7 +5,8 @@ import { createMuiTheme } from '@material-ui/core/styles/';
 import { Account } from "./components/Account";
 import { Nav } from "./components/Nav";
 
-const getLibrary = (provider) => provider;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getLibrary = (provider: any): any => provider;
 
 const theme = createMuiTheme({
 	palette: {
@@ -13,12 +14,12 @@ const theme = createMuiTheme({
 	}
 });
 
-const App = () =>
+const App: React.FC = () =>
 	<MuiThemeProvider theme={theme}>
 		<Web3ReactProvider getLibrary={getLibrary}>
 			<Nav />
 			<Container component="main" maxWidth="lg">
-				<Box marginTop={12} align="center">
+				<Box marginTop={12} textAlign="center">
 					<Account />
 				</Box>
 			</Container>

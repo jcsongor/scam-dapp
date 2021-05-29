@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@material-ui/core/';
+import React, {useEffect, useState, useCallback} from 'react'
+import {Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography} from '@material-ui/core/';
 import {
 	balanceOf,
 	isAddressRegistered,
@@ -9,10 +9,21 @@ import {
 	update,
 	promotionRunning
 } from "../../lib/web3";
-import { useWeb3 } from "../../hooks/useWeb3";
-import { LPRewards } from "./LPRewards";
+import {useWeb3} from "../../hooks/useWeb3";
+import {LPRewards} from "./LPRewards";
 
-const AccountInfo = ({ address, balance, lpBalance, lpMonitorBalance, isRegistered, isPromotionRunning, fetchAccountInfo, register, update }) =>
+type AccountInfoProps = {
+	address: string,
+	balance: string,
+	lpBalance: string,
+	lpMonitorBalance: string,
+	isRegistered: boolean,
+	isPromotionRunning: boolean,
+	fetchAccountInfo: () => void,
+	register: () => void,
+	update: () => void,
+}
+const AccountInfo: React.FC<AccountInfoProps> = ({address, balance, lpBalance, lpMonitorBalance, isRegistered, isPromotionRunning, register, update}) =>
 	<TableContainer
 		component={Paper}>
 		<Table>
@@ -30,7 +41,6 @@ const AccountInfo = ({ address, balance, lpBalance, lpMonitorBalance, isRegister
 					isRegistered={isRegistered}
 					lpBalance={lpBalance}
 					lpMonitorBalance={lpMonitorBalance}
-					refresh={fetchAccountInfo}
 					register={register}
 					update={update}
 				/>
@@ -43,34 +53,47 @@ const NotConnected = () => <div>
 	<img src="/icon.png" alt="scam coin logo" />
 </div>;
 
-export const Account = () => {
-	const { account, active, web3 } = useWeb3();
-	const [accountInfo, setAccountInfo] = useState(null);
+type AccountInfo = {
+	address: string;
+	balance: string;
+	lpMonitorBalance: string;
+	lpBalance: string;
+	isRegistered: boolean;
+	isPromotionRunning: boolean;
+}
+
+export const Account: React.FC = () => {
+	const {active, account, web3} = useWeb3();
+	const [accountInfo, setAccountInfo] = useState<AccountInfo|null>(null);
 	const fetchAccountInfo = useCallback(async () => {
-		setAccountInfo({
+		account && setAccountInfo({
+			address: account,
 			balance: await balanceOf(web3, account),
 			lpMonitorBalance: await lpMonitorBalanceOf(web3, account),
 			lpBalance: await lpBalanceOf(web3, account),
 			isRegistered: await isAddressRegistered(web3, account),
-			isPromotionRunning: await promotionRunning(web3),
+			isPromotionRunning: await promotionRunning(web3, account),
 		})
 	}, [account]);
 	const registerAndRefresh = useCallback(async () => {
-		await register(web3, account);
+		if (account) {
+			await register(web3, account);
+		}
 		fetchAccountInfo();
 	}, [fetchAccountInfo, account]);
 	const updateAndRefresh = useCallback(async () => {
-		await update(web3, account);
+		if (account) {
+			await update(web3, account);
+		}
 		fetchAccountInfo();
 	}, [fetchAccountInfo, account]);
 	useEffect(() => {
-		active && fetchAccountInfo();
-	}, [active, fetchAccountInfo]);
+		fetchAccountInfo();
+	}, [account, fetchAccountInfo]);
 
-	return active
+	return active && accountInfo
 		? <AccountInfo
 			{...accountInfo}
-			address={account}
 			fetchAccountInfo={fetchAccountInfo}
 			register={registerAndRefresh}
 			update={updateAndRefresh}

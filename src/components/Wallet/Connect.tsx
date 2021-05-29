@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, {useMemo, useState} from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -12,8 +12,8 @@ import {
 	makeStyles,
 } from '@material-ui/core/';
 import CloseIcon from '@material-ui/icons/Close';
-import { useConnectWallet } from "../../hooks/useConnectWallet";
-import { WalletButton } from "./WalletButton";
+import {useConnectWallet} from "../../hooks/useConnectWallet";
+import {WalletButton} from "./WalletButton";
 
 const useStyles = makeStyles({
 	closeButton: {
@@ -23,20 +23,22 @@ const useStyles = makeStyles({
 	},
 });
 
-const ConnectButton = ({ onClick, title = 'Connect', logo }) => <ListItem button onClick={onClick}>
+type Props = { onClick: () => void, logo: string, title: string };
+
+const ConnectButton: React.FC<Props> = ({onClick, title = 'Connect', logo}) => <ListItem button onClick={onClick}>
 	<ListItemIcon><img src={logo} alt={title} width={32} height={32} /></ListItemIcon>
 	<ListItemText>{title}</ListItemText>
 </ListItem>;
 
-export const Connect = () => {
+export const Connect: React.FC = () => {
 	const styles = useStyles();
 	const [open, setOpen] = useState(false);
-	const { connectBinanceWallet, connectMetamask } = useConnectWallet();
+	const {connectBinanceWallet, connectMetamask} = useConnectWallet();
 	const openDialog = useMemo(() => () => setOpen(true), [setOpen]);
 	const closeDialog = useMemo(() => () => setOpen(false), [setOpen]);
 	const wallets = [
-		{ title: "Metamask", logo: "/metamask-logo.svg", onClick: connectMetamask },
-		{ title: "Binance Chain Wallet", logo: "/binance-logo.png", onClick: connectBinanceWallet },
+		{title: "Metamask", logo: "/metamask-logo.svg", onClick: connectMetamask},
+		{title: "Binance Chain Wallet", logo: "/binance-logo.png", onClick: connectBinanceWallet},
 	];
 
 	return <>
