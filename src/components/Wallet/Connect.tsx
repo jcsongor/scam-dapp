@@ -33,12 +33,13 @@ const ConnectButton: React.FC<Props> = ({onClick, title = 'Connect', logo}) => <
 export const Connect: React.FC = () => {
 	const styles = useStyles();
 	const [open, setOpen] = useState(false);
-	const {connectBinanceWallet, connectMetamask} = useConnectWallet();
+	const {connectBinanceWallet, connectMetamask, connectTrustWallet} = useConnectWallet();
 	const openDialog = useMemo(() => () => setOpen(true), [setOpen]);
 	const closeDialog = useMemo(() => () => setOpen(false), [setOpen]);
 	const wallets = [
 		{title: "Metamask", logo: "/metamask-logo.svg", onClick: connectMetamask},
 		{title: "Binance Chain Wallet", logo: "/binance-logo.png", onClick: connectBinanceWallet},
+		{title: "Trust Wallet", logo: "/trustwallet-logo.png", onClick: connectTrustWallet},
 	];
 
 	return <>

