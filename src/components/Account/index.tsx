@@ -48,10 +48,10 @@ const AccountInfo: React.FC<AccountInfoProps> = ({address, balance, lpBalance, l
 		</Table>
 	</TableContainer>;
 
-const NotConnected = () => <div>
+const NotConnected = () => <>
 	<Typography variant="h3" color="primary">Please Connect Your Wallet.</Typography><br />
 	<img src="/icon.png" alt="scam coin logo" />
-</div>;
+</>;
 
 type AccountInfo = {
 	address: string;
