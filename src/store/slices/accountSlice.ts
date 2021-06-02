@@ -34,18 +34,15 @@ export const accountSlice = createSlice({
 	name: 'account',
 	initialState: initialState as Account,
 	reducers: {
-		setAccount: (state, action: PayloadAction<Account>) => {
-			state = action.payload
-		},
+		resetAccountInfo: () => initialState,
 	},
 	extraReducers: (builder) => {
 		builder.addCase(loadAccountInfo.fulfilled, (state, action: PayloadAction<Account>) => action.payload);
 	}
 });
 
-export const {setAccount} = accountSlice.actions;
+export const {resetAccountInfo} = accountSlice.actions;
 
-export const selectAccountInfo = ({account}: RootState): Account => account;
 export const selectAccountIsLoaded = ({account}: RootState): boolean => !!account;
 export const selectAccountAddress = ({account}: RootState): string => account ? account.address : '';
 export const selectAccountBalance = ({account}: RootState): string => account ? account.balance : '';

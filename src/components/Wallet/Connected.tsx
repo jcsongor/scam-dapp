@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo, useState, useCallback} from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -16,6 +16,8 @@ import {maskAddress} from "../../lib/web3";
 import {WalletButton} from "./WalletButton";
 import CloseIcon from '@material-ui/icons/Close';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {useAppDispatch} from "../../store/hooks";
+import {resetAccountInfo} from "../../store/slices/accountSlice";
 
 const useStyles = makeStyles({
 	closeButton: {
@@ -29,6 +31,11 @@ export const Connected: React.FC = () => {
 	const styles = useStyles();
 	const [open, setOpen] = useState(false);
 	const {account, deactivate} = useWeb3();
+	const appDispatch = useAppDispatch();
+	const disconnect = useCallback(() => {
+		deactivate();
+		appDispatch(resetAccountInfo())
+	}, [deactivate]);
 	const openDialog = useMemo(() => () => setOpen(true), [setOpen]);
 	const closeDialog = useMemo(() => () => setOpen(false), [setOpen]);
 
@@ -43,7 +50,7 @@ export const Connected: React.FC = () => {
 			<DialogContent>
 				<DialogContentText>
 					<List>
-						<ListItem button onClick={deactivate}>
+						<ListItem button onClick={disconnect}>
 							<ListItemIcon><ExitToAppIcon /></ListItemIcon>
 							<ListItemText>Disconnect Your Wallet</ListItemText>
 						</ListItem>

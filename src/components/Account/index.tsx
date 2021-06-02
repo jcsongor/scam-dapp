@@ -4,7 +4,9 @@ import {useWeb3} from "../../hooks/useWeb3";
 import {LPRewards} from "./LPRewards";
 import {useAppDispatch} from "../../store/hooks";
 import {
-	loadAccountInfo, selectAccountAddress, selectAccountBalance,
+	loadAccountInfo,
+	selectAccountAddress,
+	selectAccountBalance,
 	selectAccountIsLoaded,
 } from "../../store/slices/accountSlice";
 import {useSelector} from "react-redux";
