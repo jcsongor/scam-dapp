@@ -22,12 +22,18 @@ export const loadAccountInfo = createAsyncThunk(
 
 export const registerAccount = createAsyncThunk(
 	'account/update',
-	async ({web3, address}: {web3: Web3, address: string}) => await register(web3, address),
+	async ({web3, address}: {web3: Web3, address: string}, {dispatch}) => {
+		await register(web3, address);
+		dispatch(loadAccountInfo({web3, address}))
+	},
 );
 
 export const updateLPMonitor = createAsyncThunk(
 	'account/update',
-	async ({web3, address}: {web3: Web3, address: string}) => await update(web3, address),
+	async ({web3, address}: {web3: Web3, address: string}, {dispatch}) => {
+		await update(web3, address);
+		dispatch(loadAccountInfo({web3, address}))
+	},
 );
 
 export const accountSlice = createSlice({
