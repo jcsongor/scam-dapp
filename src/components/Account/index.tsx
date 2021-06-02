@@ -1,5 +1,14 @@
 import React, {useEffect} from 'react'
-import {Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography} from '@material-ui/core/';
+import {
+	CircularProgress,
+	Paper,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableRow,
+	Typography
+} from '@material-ui/core/';
 import {useWeb3} from "../../hooks/useWeb3";
 import {LPRewards} from "./LPRewards";
 import {useAppDispatch} from "../../store/hooks";
@@ -48,6 +57,6 @@ export const Account: React.FC = () => {
 		}
 	}, [address]);
 
-	return active && isAccountLoaded ? <AccountInfo /> : <NotConnected />;
+	return active ? isAccountLoaded ? <AccountInfo /> : <CircularProgress /> : <NotConnected />;
 };
 
