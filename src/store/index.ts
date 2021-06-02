@@ -1,10 +1,8 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
-import {walletReducer} from "./slices/walletSlice";
 import {accountReducer} from "./slices/accountSlice";
 
 export const store = configureStore({
 	reducer: {
-		wallet: walletReducer,
 		account: accountReducer,
 	},
 });
