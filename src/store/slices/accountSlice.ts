@@ -56,6 +56,6 @@ export const selectAccountLpBalance = ({account}: RootState): string => account 
 export const selectAccountLpMonitorBalance = ({account}: RootState): string => account ? account.lpMonitorBalance : '';
 export const selectAccountIsRegistered = ({account}: RootState): boolean => account ? account.isRegistered : false;
 export const selectIsPromotionRunning = ({account}: RootState): boolean => account ? account.isPromotionRunning : false;
-export const selectIsLpMonitorBalanceUpToDate = ({account}: RootState): boolean => account ? account.lpBalance !== account.lpMonitorBalance: false;
+export const selectIsLpMonitorBalanceUpToDate = ({account}: RootState): boolean => account ? account.lpBalance === account.lpMonitorBalance: false;
 
 export const accountReducer = accountSlice.reducer;

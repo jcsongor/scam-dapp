@@ -56,14 +56,21 @@ const LPMonitor: React.FC = () => {
 
 const Update: React.FC = () => {
 	const address = useSelector(selectAccountAddress);
+	const isLpMonitorBalanceUpToDate = useSelector(selectIsLpMonitorBalanceUpToDate);
 	const {web3} = useWeb3();
 	const update = useCallback(()=>updateLPMonitor({address, web3}), [address, web3]);
 	return <TableRow>
-		<TableCell>
-			It looks like you have some LP tokens that are not registered for rewards.<br />
-			You can fix that by running an update.<br />
-			You can also check back in ~24 hours, we run an update for you every day.<br />
-		</TableCell>
+		{isLpMonitorBalanceUpToDate
+			? <TableCell>
+				It looks like your LP token balance is up-to-date.<br />
+				You can still run an update if you wish.<br />
+			</TableCell>
+			: <TableCell>
+				It looks like you have some LP tokens that are not registered for rewards.<br />
+				You can fix that by running an update.<br />
+				You can also check back in ~24 hours, we run an update for you every day.<br />
+			</TableCell>
+		}
 		<TableCell>
 			<Button onClick={update} color="primary" variant="contained">Update</Button>
 		</TableCell>
@@ -72,10 +79,9 @@ const Update: React.FC = () => {
 
 export const LPRewards: React.FC = () => {
 	const isPromotionRunning = useSelector(selectIsPromotionRunning);
-	const isLpMonitorBalanceUpToDate = useSelector(selectIsLpMonitorBalanceUpToDate);
 	return <>
 		<LPBalance />
 		<LPMonitor />
-		{isPromotionRunning && isLpMonitorBalanceUpToDate && <Update />}
+		{isPromotionRunning && <Update />}
 	</>;
-}
+};
