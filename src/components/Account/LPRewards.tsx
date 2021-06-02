@@ -7,15 +7,18 @@ import {
 	selectAccountLpMonitorBalance,
 	selectIsLpMonitorBalanceUpToDate,
 	selectIsPromotionRunning,
+	selectAccountAddress,
 	registerAccount,
-	updateLPMonitor, selectAccountAddress
+	updateLPMonitor,
 } from "../../store/slices/accountSlice";
 import {useWeb3} from "../../hooks/useWeb3";
+import {useAppDispatch} from "../../store/hooks";
 
 const NotRegistered: React.FC = () => {
+	const appDispatch = useAppDispatch();
 	const address = useSelector(selectAccountAddress);
 	const {web3} = useWeb3();
-	const register = useCallback(()=>registerAccount({address, web3}), [address, web3]);
+	const register = useCallback(() => appDispatch(registerAccount({address, web3})), [address, web3]);
 	return <TableRow>
 		<TableCell>
 			You have not registered for liquidity rewards yet.
@@ -55,10 +58,11 @@ const LPMonitor: React.FC = () => {
 };
 
 const Update: React.FC = () => {
+	const appDispatch = useAppDispatch();
 	const address = useSelector(selectAccountAddress);
 	const isLpMonitorBalanceUpToDate = useSelector(selectIsLpMonitorBalanceUpToDate);
 	const {web3} = useWeb3();
-	const update = useCallback(()=>updateLPMonitor({address, web3}), [address, web3]);
+	const update = useCallback(() => appDispatch(updateLPMonitor({address, web3})), [address, web3]);
 	return <TableRow>
 		{isLpMonitorBalanceUpToDate
 			? <TableCell>
