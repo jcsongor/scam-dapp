@@ -3,6 +3,7 @@ import {InjectedConnector} from "@web3-react/injected-connector";
 import {ContractInfo, lovePool, lpMonitor, scamToken} from "../config/contracts";
 import {Decimal} from "decimal.js";
 import Web3 from "web3";
+import {Account} from "../store/slices/accountSlice";
 
 const getContract = (contract: ContractInfo, account: string, web3: Web3) => new web3.eth.Contract(contract.abi, contract.address, {from: account});
 
@@ -11,7 +12,7 @@ const numberToString = (number: number, decimals: number) => {
 	return decimal.dividedBy(new Decimal(10).toPower(decimals)).toString();
 };
 
-export const balanceOf = async (web3: Web3, account: string): Promise<string> => {
+const balanceOf = async (web3: Web3, account: string): Promise<string> => {
 	const contract = getContract(scamToken, account, web3);
 	const balance = await contract.methods.balanceOf(account).call();
 	const decimals = parseInt(await contract.methods.decimals().call());
@@ -20,28 +21,36 @@ export const balanceOf = async (web3: Web3, account: string): Promise<string> =>
 
 const LP_DECIMALS = 18;
 
-export const lpMonitorBalanceOf = async (web3: Web3, account: string): Promise<string> => {
+const lpMonitorBalanceOf = async (web3: Web3, account: string): Promise<string> => {
 	const contract = getContract(lpMonitor, account, web3);
 	const balance = await contract.methods.balanceOf(account).call();
 	return numberToString(balance, LP_DECIMALS);
 };
 
-export const lpBalanceOf = async (web3: Web3, account: string): Promise<string> => {
+const lpBalanceOf = async (web3: Web3, account: string): Promise<string> => {
 	const contract = getContract(lovePool, account, web3);
 	const balance = await contract.methods.balanceOf(account).call();
 	return numberToString(balance, LP_DECIMALS);
 };
 
-export const isAddressRegistered = async (web3: Web3, account: string): Promise<boolean> => {
+const isAddressRegistered = async (web3: Web3, account: string): Promise<boolean> => {
 	const contract = getContract(lpMonitor, account, web3);
 	return !!await contract.methods.isAddressRegistered(account).call();
 };
 
-export const promotionRunning = async (web3: Web3, account: string): Promise<boolean> => {
+const promotionRunning = async (web3: Web3, account: string): Promise<boolean> => {
 	const contract = getContract(lpMonitor, account, web3);
 	return !!await contract.methods.PromotionRunning().call();
 };
 
+export const fetchAccountInfo = async (web3: Web3, account: string): Promise<Account> => ({
+	address: account,
+	balance: await balanceOf(web3, account),
+	lpMonitorBalance: await lpMonitorBalanceOf(web3, account),
+	lpBalance: await lpBalanceOf(web3, account),
+	isRegistered: await isAddressRegistered(web3, account),
+	isPromotionRunning: await promotionRunning(web3, account),
+});
 
 export const register = async (web3: Web3, account: string): Promise<void> => {
 	const contract = getContract(lpMonitor, account, web3);
