@@ -77,6 +77,9 @@ const Update: React.FC = () => {
 		}
 		<TableCell>
 			<Button onClick={update} color="primary" variant="contained">Update</Button>
+			<br/>
+			<br/>
+			Warning: running an update will cost you a network transaction fee
 		</TableCell>
 	</TableRow>;
 };

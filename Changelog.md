@@ -1,3 +1,7 @@
+## v0.2 (2021-06-05)
+- Fix trust wallet
+- Add warning for transaction fee
+
 ## v0.2 (2021-06-03)
 - Fix rounding errors
 - Add support for trust wallet
