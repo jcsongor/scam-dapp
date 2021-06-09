@@ -31,6 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "release": "zip -r build.zip build && node bin/uploadBuildArtifact.js",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .ts,.tsx"
   },
@@ -51,5 +52,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.923.0",
+    "create-react-app": "^4.0.3",
+    "dotenv": "^10.0.0"
   }
 }
