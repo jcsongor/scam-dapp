@@ -39,7 +39,7 @@ export const Connect: React.FC = () => {
 	const wallets = [
 		{title: "Metamask", logo: "/metamask-logo.svg", onClick: connectMetamask},
 		{title: "Binance Chain Wallet", logo: "/binance-logo.png", onClick: connectBinanceWallet},
-		// {title: "Trust Wallet", logo: "/trustwallet-logo.png", onClick: connectTrustWallet},
+		{title: "Trust Wallet", logo: "/trustwallet-logo.png", onClick: connectTrustWallet},
 	];
 
 	return <>
