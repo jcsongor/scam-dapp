@@ -52,7 +52,7 @@ const LPBalance: React.FC = () => {
             <TableCell>{lpBalance}</TableCell>
         </TableRow>
         <TableRow>
-            <TableCell>You can buy {parseInt(lpBalance) > 0 ? 'more ' : ''}LP tokens on PancakeSwap:</TableCell>
+            <TableCell>You can get {parseInt(lpBalance) > 0 ? 'more ' : ''}LP tokens by providing liquidity on PancakeSwap:</TableCell>
             <TableCell>
                 <Button
                     color="primary"
@@ -60,7 +60,7 @@ const LPBalance: React.FC = () => {
                     component="a"
                     target="_blank"
                     href="https://exchange.pancakeswap.finance/#/add/BNB/0xdb78fcbb4f1693fdbf7a85e970946e4ce466e2a9">
-                    Buy LP tokens
+                    Get LP tokens
                 </Button>
             </TableCell>
         </TableRow>
